@@ -3,8 +3,8 @@
 import streamlit as st
 from utils import setup_page
 
-# Chama a função de setup, passando True para ocultar este próprio link na barra lateral
-setup_page(__file__, hide_main_page=True)
+# Chama a função de setup, agora com apenas um argumento
+setup_page(__file__)
 
 # --- PÁGINA PRINCIPAL ---
 st.title("Bem-vindo ao Assistente de Recrutamento da Decision!")
