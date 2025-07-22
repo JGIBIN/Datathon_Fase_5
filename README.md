@@ -52,22 +52,22 @@ Para executar este projeto em sua máquina local, siga os passos abaixo.
 ```bash
      Arquivo usado para avaliar quais modelos de ML estavam com melhor performance.
 
-6.  **Metodologia e Linha de Raciocínio:**
+Metodologia e Linha de Raciocínio:
 O desenvolvimento seguiu um fluxo padrão de projetos de ciência de dados, com foco na preparação dos dados e na experimentação de diferentes algoritmos.
 
-7.  **Fonte e Preparação dos Dados:**
+Fonte e Preparação dos Dados:
 Fonte: Os dados utilizados foram um histórico de contratações fornecido pela empresa DECISION.
 
-8.  **Limpeza e Desafios:** 
+Limpeza e Desafios:
 A etapa inicial de análise exploratória revelou uma falta de padronização significativa entre os dados das vagas e as características descritas pelos candidatos. 
 Isso exigiu um processo intenso de limpeza de dados, que incluiu a exclusão de muitas linhas que continham informações em branco ou inconsistentes, tornando-as impróprias para o treinamento.
 
-9.  **Engenharia de Features:**
+Engenharia de Features:
 Para enriquecer o dataset e compensar a perda de dados, foram criadas novas features. Um exemplo notável foi a criação de uma variável que calcula a "distância" 
 entre o nível de proficiência em um idioma (como inglês ou espanhol) exigido pela vaga e o nível apresentado pelo candidato. Além disso, foi necessário realizar uma extensa conversão de variáveis categóricas (texto) 
 para um formato numérico que os modelos pudessem processar.
 
-10.  **Modelagem e Experimentação:**
+Modelagem e Experimentação:
 Para encontrar a solução mais adequada, foram testados e comparados diversos algoritmos de classificação, incluindo:
 
     Regressão Logística
@@ -80,13 +80,13 @@ Para encontrar a solução mais adequada, foram testados e comparados diversos a
 
     A performance de cada modelo foi rigorosamente avaliada utilizando as métricas de Acurácia e F1-Score, que oferecem uma visão balanceada da capacidade do modelo em acertar suas previsões e lidar com as classes de "aceito" e "não aceito".
 
-11.  **Resultados e Escolha do Modelo Final:**
+Resultados e Escolha do Modelo Final:
 Após as rodadas de testes, alternando features e retestando modelos, constatou-se que nenhum dos modelos apresentou um desempenho excepcional que o destacasse amplamente dos demais. 
 Diante deste cenário, o XGBoost foi selecionado como o modelo final por ter apresentado o desempenho aceitável, ou seja, a combinação mais estável e ligeiramente superior nas métricas avaliadas.
 
 A decisão de não prosseguir com a implementação de Redes Neurais, embora consideradas inicialmente, foi tomada devido a limitações de tempo do projeto.
 
-12.  **Melhorias Futuras:**
+Melhorias Futuras:
 Como próximo passo para a evolução deste projeto, sugere-se a implementação e teste de arquiteturas de Redes Neurais. 
 Com mais tempo para desenvolvimento e ajuste de hiperparâmetros, é possível que esta abordagem mais complexa consiga capturar padrões nos dados que os modelos atuais não conseguiram, 
 potencialmente levando a um salto de performance significativo.
