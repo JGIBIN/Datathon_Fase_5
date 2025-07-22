@@ -49,6 +49,7 @@ Para executar este projeto em sua máquina local, siga os passos abaixo.
     A aplicação será aberta automaticamente no seu navegador.
 
 5.  **Arquivo analise_dados.ipynb:**
+```bash
      Arquivo usado para avaliar quais modelos de ML estavam com melhor performance.
 
 6.  **Metodologia e Linha de Raciocínio:**
@@ -69,15 +70,15 @@ para um formato numérico que os modelos pudessem processar.
 10.  **Modelagem e Experimentação:**
 Para encontrar a solução mais adequada, foram testados e comparados diversos algoritmos de classificação, incluindo:
 
-Regressão Logística
+    Regressão Logística
 
-Random Forest
+    Random Forest
 
-K-Nearest Neighbors (KNN)
+    K-Nearest Neighbors (KNN)
 
-XGBoost
+    XGBoost
 
-A performance de cada modelo foi rigorosamente avaliada utilizando as métricas de Acurácia e F1-Score, que oferecem uma visão balanceada da capacidade do modelo em acertar suas previsões e lidar com as classes de "aceito" e "não aceito".
+    A performance de cada modelo foi rigorosamente avaliada utilizando as métricas de Acurácia e F1-Score, que oferecem uma visão balanceada da capacidade do modelo em acertar suas previsões e lidar com as classes de "aceito" e "não aceito".
 
 11.  **Resultados e Escolha do Modelo Final:**
 Após as rodadas de testes, alternando features e retestando modelos, constatou-se que nenhum dos modelos apresentou um desempenho excepcional que o destacasse amplamente dos demais. 
@@ -89,7 +90,7 @@ A decisão de não prosseguir com a implementação de Redes Neurais, embora con
 Como próximo passo para a evolução deste projeto, sugere-se a implementação e teste de arquiteturas de Redes Neurais. 
 Com mais tempo para desenvolvimento e ajuste de hiperparâmetros, é possível que esta abordagem mais complexa consiga capturar padrões nos dados que os modelos atuais não conseguiram, 
 potencialmente levando a um salto de performance significativo.
-
+```
 ## 🏛️ Estrutura do Projeto
 
 -   `app.py`: Ponto de entrada da aplicação, a página inicial.
