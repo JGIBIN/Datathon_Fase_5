@@ -13,8 +13,8 @@ st.markdown(
     """
     ### Navegue pelas páginas ao lado para conhecer o desafio e testar nossa solução.
     
-    - **O Desafio do Datathon:** Entenda o problema de negócio que motivou este projeto.
-    - **Análise de Vaga:** Simule a candidatura a uma vaga e veja a análise de compatibilidade em tempo real.
+    - **O Desafio:** Entenda o problema de negócio que motivou este projeto.
+    - **Cadastro na Vaga:** Se candidate a uma vaga e veja a análise de compatibilidade em tempo real.
     
     *Use o menu na barra à esquerda para navegar entre as seções.*
     """
