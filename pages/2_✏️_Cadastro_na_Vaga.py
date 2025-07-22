@@ -13,7 +13,6 @@ from utils import setup_page
 
 
 # --- Configuração da Página ---
-# Configura a página e a barra lateral
 setup_page(__file__)
 
 
@@ -35,7 +34,7 @@ def carregar_artefatos():
             descricoes = json.load(f)
         return pipeline, lista_vagas, descricoes
     except FileNotFoundError as e:
-        st.error(f"Erro ao carregar artefatos: {e}. Certifique-se de que os arquivos 'decision_model.pkl', 'vagas_disponiveis.json' e 'descricoes_vagas.json' estão na pasta 'models'.")
+        st.error(f"Erro ao carregar artefatos: {e}. Verifique se os arquivos estão na pasta 'models'.")
         return None, None, None
 
 def salvar_aplicacao(data):
@@ -50,46 +49,58 @@ def salvar_aplicacao(data):
 # SEÇÃO 2: LAYOUT DA PÁGINA E INTERFACE DO USUÁRIO
 # ==============================================================================
 
-st.markdown("# Cadastro e Análise de Compatibilidade Candidato vs Vaga")
+st.markdown("# 📝 Análise de Compatibilidade Candidato-Vaga")
 st.markdown("---")
 
 model_pipeline, vagas_disponiveis, descricoes_vagas = carregar_artefatos()
 
 if model_pipeline and vagas_disponiveis and descricoes_vagas:
-    st.info("Bem-vindo(a)! Preencha o formulário abaixo para aplicar para uma de nossas vagas e veja sua compatibilidade instantaneamente.")
+    st.info("Bem-vindo(a)! Primeiro, selecione uma vaga. Depois, preencha o formulário para ver sua compatibilidade.")
+    st.write("")
 
+    # --- PARTE 1: SELEÇÃO DA VAGA (FORA DO FORMULÁRIO) ---
+    # Esta seção precisa ser interativa, por isso fica aqui fora.
+    
+    st.subheader("🎯 Vaga de Interesse")
+    
+    termo_pesquisa = st.text_input(
+        "Pesquisar vaga por nome:",
+        placeholder="Ex: Analista de Dados"
+    )
+
+    if termo_pesquisa:
+        vagas_filtradas = [v for v in vagas_disponiveis if termo_pesquisa.lower() in v.lower()]
+    else:
+        vagas_filtradas = sorted(vagas_disponiveis)
+
+    vaga_selecionada = st.selectbox(
+        'Selecione a vaga para a qual deseja aplicar*',
+        options=vagas_filtradas,
+        index=0 if vagas_filtradas else None
+    )
+    
+    if vaga_selecionada:
+        with st.expander("Ver Descrição da Vaga", expanded=True):
+            st.markdown(descricoes_vagas.get(vaga_selecionada, "Descrição não disponível."))
+    elif termo_pesquisa:
+         st.warning("Nenhuma vaga encontrada com este termo.")
+    
+    st.markdown("---")
+
+    # --- PARTE 2: FORMULÁRIO DE DADOS DO CANDIDATO ---
+    # Apenas os campos que devem ser submetidos juntos ficam aqui dentro.
+    
     with st.form(key='application_form'):
-        
-        
-        # --- SEÇÃO 1: VAGA DE INTERESSE (MANTIDA) ---
-        st.subheader("1.👔Vaga de Interesse")
-        vaga_selecionada = st.selectbox(
-            'Para qual vaga você deseja aplicar?*',
-            options=sorted(vagas_disponiveis)
-        )
-        if vaga_selecionada:
-            with st.expander("📝Ver Descrição da Vaga", expanded=False):
-                st.markdown(descricoes_vagas.get(vaga_selecionada, "Descrição não disponível."))
-
-        st.markdown("---")
-
-
-        # --- SEÇÃO 2: DADOS PESSOAIS ---
-        st.subheader("2.📄Dados Pessoais")
-        col_pessoal1, col_pessoal2, col_pessoal3 = st.columns(3)
+        st.subheader("👤 Dados Pessoais")
+        col_pessoal1, col_pessoal2 = st.columns(2)
         with col_pessoal1:
             nome_candidato = st.text_input("Nome Completo*")
         with col_pessoal2:
             email_candidato = st.text_input("E-mail*")
-        with col_pessoal3:
-            telefone = st.text_input("Telefone de Contato")
         linkedIn_candidato = st.text_input("Perfil do LinkedIn (opcional)")
+        st.write("")
 
-        st.markdown("---")
-
-
-        # --- SEÇÃO 3: PERFIL PROFISSIONAL (MODIFICADA) ---
-        st.subheader("3.🛠️Perfil Profissional")
+        st.subheader("📈 Perfil Profissional")
         col1, col2 = st.columns(2)
         with col1:
             nivel_profissional = st.selectbox('Nível Profissional*', ['Júnior', 'Pleno', 'Sênior', 'Especialista', 'Desconhecido'], index=1)
@@ -98,39 +109,36 @@ if model_pipeline and vagas_disponiveis and descricoes_vagas:
             nivel_ingles = st.selectbox('Nível de Inglês*', ['Básico', 'Intermediário', 'Avançado', 'Fluente', 'Desconhecido'], index=1)
             nivel_espanhol = st.selectbox('Nível de Espanhol*', ['Básico', 'Intermediário', 'Avançado', 'Fluente', 'Não possuo', 'Desconhecido'], index=4)
 
-        # --- CAMPOS DE TEXTO DETALHADOS (NOVO) ---
         conhecimentos_tecnicos = st.text_area(
-            "Conhecimentos Técnicos*",
+            "Seus Conhecimentos Técnicos*",
             height=200,
-            placeholder="Descreva suas experiências, tecnologias que domina (Python, SQL, Power BI, etc.), projetos que participou e seus objetivos profissionais."
+            placeholder="Descreva suas experiências, tecnologias que domina (Python, SQL, Power BI, etc.)..."
         )
         certificacoes = st.text_area(
-            "Certificações",
+            "Suas Certificações",
             height=100,
-            placeholder="Liste suas certificações relevantes para a vaga (ex: AWS Certified, Scrum Master, etc.)."
+            placeholder="Liste suas certificações relevantes para a vaga..."
         )
         comentario = st.text_area(
             "Comentário Adicional",
-            placeholder="Adicione um comentário ou nota (opcional)."
+            placeholder="Adicione uma nota (opcional)."
         )
 
         st.caption("Campos com * são obrigatórios.")
-        submit_button = st.form_submit_button(label=' ✅ Enviar Aplicação e Ver Compatibilidade')
+        st.write("")
+        
+        submit_button = st.form_submit_button(label='✅ Enviar Aplicação e Ver Compatibilidade')
 
+    # --- LÓGICA APÓS O ENVIO DO FORMULÁRIO ---
     if submit_button:
-        if not nome_candidato or not email_candidato or not conhecimentos_tecnicos:
+        if not all([nome_candidato, email_candidato, conhecimentos_tecnicos, vaga_selecionada]):
             st.warning("Por favor, preencha todos os campos obrigatórios (*).")
         else:
             with st.spinner('Processando sua aplicação...'):
-                # LÓGICA ATUALIZADA
-                # 1. Pega a descrição completa da vaga selecionada
                 descricao_vaga_completa = descricoes_vagas.get(vaga_selecionada, "")
-                # 2. Combina os novos campos de texto do candidato
                 texto_candidato_combinado = f"{conhecimentos_tecnicos} {certificacoes}"
-                # 3. Cria o input para o modelo com a descrição completa da vaga
                 texto_completo_input = f"{descricao_vaga_completa} {texto_candidato_combinado}"
 
-                # Monta o DataFrame para o modelo
                 input_data_model = {
                     'texto_completo': texto_completo_input,
                     'perfil_vaga.nivel profissional': nivel_profissional,
@@ -142,16 +150,13 @@ if model_pipeline and vagas_disponiveis and descricoes_vagas:
                 }
                 input_df = pd.DataFrame([input_data_model])
 
-                # Gera o score de compatibilidade
                 probabilidade = model_pipeline.predict_proba(input_df)[0][1]
                 score_compatibilidade = int(probabilidade * 100)
 
-                # Prepara os dados para salvar na base (com os novos campos)
                 application_data_to_save = {
                     "data_aplicacao": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     "nome_candidato": nome_candidato,
                     "email_candidato": email_candidato,
-                    "telefone": telefone,
                     "linkedin_candidato": linkedIn_candidato,
                     "vaga_aplicada": vaga_selecionada,
                     "score_compatibilidade": score_compatibilidade,
@@ -164,7 +169,6 @@ if model_pipeline and vagas_disponiveis and descricoes_vagas:
                     "comentario": comentario
                 }
 
-                # Salva os dados no arquivo CSV
                 salvar_aplicacao(application_data_to_save)
 
                 st.success(f"Obrigado, {nome_candidato}! Sua aplicação para a vaga '{vaga_selecionada}' foi recebida com sucesso.")
