@@ -62,7 +62,7 @@ if model_pipeline and vagas_disponiveis and descricoes_vagas:
         
         
         # --- SEÇÃO 1: VAGA DE INTERESSE (MANTIDA) ---
-        st.subheader("1. Vaga de Interesse")
+        st.subheader("1.👔Vaga de Interesse")
         vaga_selecionada = st.selectbox(
             'Para qual vaga você deseja aplicar?*',
             options=sorted(vagas_disponiveis)
@@ -75,7 +75,7 @@ if model_pipeline and vagas_disponiveis and descricoes_vagas:
 
 
         # --- SEÇÃO 2: DADOS PESSOAIS ---
-        st.subheader("2. Dados Pessoais")
+        st.subheader("2.📄Dados Pessoais")
         col_pessoal1, col_pessoal2, col_pessoal3 = st.columns(3)
         with col_pessoal1:
             nome_candidato = st.text_input("Nome Completo*")
@@ -89,7 +89,7 @@ if model_pipeline and vagas_disponiveis and descricoes_vagas:
 
 
         # --- SEÇÃO 3: PERFIL PROFISSIONAL (MODIFICADA) ---
-        st.subheader("3. Perfil Profissional")
+        st.subheader("3.🛠️Perfil Profissional")
         col1, col2 = st.columns(2)
         with col1:
             nivel_profissional = st.selectbox('Nível Profissional*', ['Júnior', 'Pleno', 'Sênior', 'Especialista', 'Desconhecido'], index=1)
@@ -115,7 +115,7 @@ if model_pipeline and vagas_disponiveis and descricoes_vagas:
         )
 
         st.caption("Campos com * são obrigatórios.")
-        submit_button = st.form_submit_button(label='Enviar Aplicação e Ver Compatibilidade')
+        submit_button = st.form_submit_button(label=' ✅ Enviar Aplicação e Ver Compatibilidade')
 
     if submit_button:
         if not nome_candidato or not email_candidato or not conhecimentos_tecnicos:
@@ -151,6 +151,7 @@ if model_pipeline and vagas_disponiveis and descricoes_vagas:
                     "data_aplicacao": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     "nome_candidato": nome_candidato,
                     "email_candidato": email_candidato,
+                    "telefone": telefone,
                     "linkedin_candidato": linkedIn_candidato,
                     "vaga_aplicada": vaga_selecionada,
                     "score_compatibilidade": score_compatibilidade,
@@ -158,7 +159,6 @@ if model_pipeline and vagas_disponiveis and descricoes_vagas:
                     "nivel_academico": nivel_academico,
                     "nivel_ingles": nivel_ingles,
                     "nivel_espanhol": nivel_espanhol,
-                    # SALVANDO OS NOVOS CAMPOS
                     "informacoes_profissionais.conhecimentos_tecnicos": conhecimentos_tecnicos,
                     "informacoes_profissionais.certificacoes": certificacoes,
                     "comentario": comentario
