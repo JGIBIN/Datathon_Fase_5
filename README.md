@@ -48,7 +48,7 @@ Para executar este projeto em sua máquina local, siga os passos abaixo.
     ```
     A aplicação será aberta automaticamente no seu navegador.
 
-5.  **Metodologia:**
+5.  **Metodologia (presente no arquivo analise_dados.ipynb e no arquivo final teste.ipynb):**
     ```bash
     Arquivo usado para avaliar quais modelos de ML estavam com melhor performance.
 
@@ -91,6 +91,7 @@ Para executar este projeto em sua máquina local, siga os passos abaixo.
     Com mais tempo para desenvolvimento e ajuste de hiperparâmetros, é possível que esta abordagem mais complexa consiga capturar padrões nos dados que os modelos atuais não conseguiram, 
     potencialmente levando a um salto de performance significativo.
     ```
+
 ## 🏛️ Estrutura do Projeto
 
 -   `app.py`: Ponto de entrada da aplicação, a página inicial.
