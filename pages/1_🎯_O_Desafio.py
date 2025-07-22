@@ -37,7 +37,7 @@ st.markdown(
     """
     Durante a construção da solução, enfrentamos alguns desafios técnicos significativos:
 
-    1.  **Dados Heterogêneos:** Os dados dos candidatos não estão em uma forma consistente, misturando informações estruturadas (nível de experiência, formação) com uma grande massa de texto não estruturado (currículos, descrições de atividades, comentários). Tratar e padronizar essa variedade foi o primeiro grande obstáculo.
+    1.  **Dados Heterogêneos:** Os dados dos candidatos vinham de fontes diversas, misturando informações estruturadas (nível de experiência, formação) com uma grande massa de texto não estruturado (currículos, descrições de atividades, comentários). Tratar e padronizar essa variedade foi o primeiro grande obstáculo.
 
     2.  **Engenharia de Features:** Como transformar texto livre — com seus jargões, abreviações e semântica complexa — em features numéricas que um modelo de Machine Learning pudesse entender? Foi necessário aplicar técnicas de Processamento de Linguagem Natural (NLP), como a vetorização TF-IDF, para converter palavras em vetores que representam sua importância.
 
@@ -57,7 +57,56 @@ st.markdown(
     - **Combinação de Dados:** A abordagem escolhida, utilizando um pipeline do `scikit-learn`, nos permitiu combinar de forma eficaz tanto os dados estruturados (níveis, formação) quanto o texto não estruturado (habilidades, experiências).
     - **Performance com XGBoost:** O coração do nosso modelo é o `XGBoost`, um algoritmo de Gradient Boosting. Ele foi escolhido por sua alta performance em dados tabulares e heterogêneos (como os nossos, após a engenharia de features), sua robustez e capacidade de capturar interações complexas entre as variáveis.
     - **Interpretabilidade e Eficiência:** O modelo não só oferece uma predição precisa, mas também é eficiente, permitindo uma análise em tempo real. Isso cria uma ferramenta poderosa para auxiliar a equipe de recrutamento a focar nos candidatos com maior potencial.
+    """
+)
 
-    > **Navegue até a página 'Análise de Compatibilidade' para ver a solução em ação!**
+# --- MÉTRICAS DE PERFORMANCE E DEFESA DOS RESULTADOS ---
+st.subheader("📊 Resultados e Defesa da Solução")
+st.markdown(
+    """
+    Para validar a eficácia do nosso modelo, ele foi rigorosamente avaliado em um conjunto de dados de teste. Os resultados não são apenas números, mas uma resposta direta aos desafios que enfrentamos.
+    """
+)
+st.code(
+    """
+--- MÉTRICAS DE PERFORMANCE (NO CONJUNTO DE TESTE) ---
+  - Acurácia: 0.8221 (82.21%)
+  - F1-Score: 0.7910 (79.10%)
+----------------------------------------------------
+""",
+    language=None
+)
+
+st.markdown("#### Por que essas métricas são boas para o nosso problema?")
+
+st.markdown(
+    """
+    1.  **Superando a Complexidade dos Dados (Acurácia de 82%)**:
+        Nosso principal obstáculo era a bagunça e a falta de padrão nos dados. Uma **acurácia de 82.21%** em dados de teste significa que, mesmo com toda a complexidade de currículos e descrições de vagas, o modelo acerta a previsão de compatibilidade em mais de 8 a cada 10 casos.
+
+    2.  **Resolvendo o Conflito Agilidade vs. Qualidade (F1-Score de 79%)**:
+        No recrutamento, o erro mais caro é descartar um bom candidato. O **F1-Score de 79.10%** demonstra que nossa ferramenta é confiável, pois ela busca um equilíbrio entre recomendar bons candidatos e minimizar as chances de deixar talentos valiosos escaparem.
+
+    3.  **Rastreabilidade e Melhoria Contínua**:
+        Além da análise, cada aplicação é **salva em uma base de dados local (arquivo CSV)**, criando um registro histórico para auditorias e futuro re-treinamento do modelo.
+
+    Em suma, as métricas validam que a solução proposta ataca diretamente as dores do processo de R&S, oferecendo uma triagem inicial automatizada, rápida, confiável e rastreável.
+    """
+)
+
+# --- MEMBROS DO GRUPO ---
+st.markdown("---")
+st.subheader("👥 Membros do Grupo")
+st.markdown(
+    """
+    - **Isaura Lima de Oliveira** - RM358471
+    - **Jorge Diego Guarda Gibin** - RM359181
+    - **Thiago de Mendonça Modesto** - RM358841
+    """
+)
+
+st.markdown(
+    """
+    > **Agora, navegue até a página 'Cadastro na Vaga' para ver a solução em ação!**
     """
 )

@@ -76,11 +76,13 @@ if model_pipeline and vagas_disponiveis and descricoes_vagas:
 
         # --- SEÇÃO 2: DADOS PESSOAIS ---
         st.subheader("2. Dados Pessoais")
-        col_pessoal1, col_pessoal2 = st.columns(2)
+        col_pessoal1, col_pessoal2, col_pessoal3 = st.columns(3)
         with col_pessoal1:
             nome_candidato = st.text_input("Nome Completo*")
         with col_pessoal2:
             email_candidato = st.text_input("E-mail*")
+        with col_pessoal3:
+            telefone = st.text_input("Telefone de Contato")
         linkedIn_candidato = st.text_input("Perfil do LinkedIn (opcional)")
 
         st.markdown("---")
